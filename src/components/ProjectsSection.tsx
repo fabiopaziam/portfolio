@@ -4,29 +4,36 @@ interface Project {
   title: string;
   description: string;
   techs: string[];
+  image: string;
   liveUrl?: string;
   repoUrl?: string;
 }
 
 const projects: Project[] = [
   {
-    title: "Portfolio Cyberpunk",
-    description: "Portfólio profissional com estética retro cyberpunk, animações neon e design responsivo.",
+    title: "Paziam Neon Studio",
+    description:
+      "Interface futurista desenvolvida com React e TypeScript, focada em animações suaves, design moderno e experiência do usuário.",
     techs: ["React", "TypeScript", "Tailwind CSS"],
-    liveUrl: "#",
-    repoUrl: "https://github.com/fabiopaziam",
+    image: "/images/paziam-neon.png",
+    liveUrl: "https://paziam-neom-studio.vercel.app/",
+    repoUrl: "https://github.com/fabiopaziam/paziam-neon-studio",
   },
   {
     title: "Landing Page SaaS",
-    description: "Página de captura moderna para produto SaaS com seções estratégicas de conversão.",
+    description:
+      "Página de captura moderna para produto SaaS com seções estratégicas de conversão.",
     techs: ["HTML5", "CSS3", "JavaScript"],
+    image: "/preview.jpg",
     liveUrl: "#",
     repoUrl: "https://github.com/fabiopaziam",
   },
   {
     title: "Dashboard Admin",
-    description: "Painel administrativo com gráficos interativos, tabelas dinâmicas e tema dark.",
+    description:
+      "Painel administrativo com gráficos interativos, tabelas dinâmicas e tema dark.",
     techs: ["React", "Recharts", "Tailwind"],
+    image: "/preview.jpg",
     liveUrl: "#",
     repoUrl: "https://github.com/fabiopaziam",
   },
@@ -45,17 +52,27 @@ const ProjectsSection = () => {
           {projects.map((project, i) => (
             <div
               key={i}
-              className="group bg-card border border-border rounded-lg overflow-hidden hover:neon-border transition-all duration-300 hover:-translate-y-1"
+              onClick={() =>
+                project.liveUrl && window.open(project.liveUrl, "_blank")
+              }
+              className="cursor-pointer group bg-card border border-border rounded-lg overflow-hidden hover:neon-border transition-all duration-300 hover:-translate-y-1"
             >
-              {/* Placeholder image area */}
-              <div className="h-40 bg-muted flex items-center justify-center relative overflow-hidden">
-                <div className="absolute inset-0 gradient-cyber opacity-10 group-hover:opacity-20 transition-opacity" />
-                <span className="font-pixel text-[8px] text-muted-foreground">SCREENSHOT</span>
+              {/* Image */}
+              <div className="h-40 overflow-hidden">
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                />
               </div>
 
               <div className="p-5">
-                <h3 className="font-display text-sm font-semibold text-foreground mb-2">{project.title}</h3>
-                <p className="text-muted-foreground text-sm mb-4 leading-relaxed">{project.description}</p>
+                <h3 className="font-display text-sm font-semibold text-foreground mb-2">
+                  {project.title}
+                </h3>
+                <p className="text-muted-foreground text-sm mb-4 leading-relaxed">
+                  {project.description}
+                </p>
 
                 {/* Techs */}
                 <div className="flex flex-wrap gap-2 mb-4">
@@ -76,6 +93,7 @@ const ProjectsSection = () => {
                       href={project.liveUrl}
                       target="_blank"
                       rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
                       className="flex items-center gap-1.5 text-xs text-foreground hover:text-primary transition-colors"
                     >
                       <ExternalLink size={14} /> Ver Projeto
@@ -86,6 +104,7 @@ const ProjectsSection = () => {
                       href={project.repoUrl}
                       target="_blank"
                       rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
                       className="flex items-center gap-1.5 text-xs text-muted-foreground hover:text-primary transition-colors"
                     >
                       <Github size={14} /> Código
